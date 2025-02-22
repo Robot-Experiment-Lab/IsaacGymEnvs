@@ -382,6 +382,56 @@ def random_geometries_link(
     return link
 
 
+def random_cylinders_link(
+    name: str,
+    num_cylinders: int,
+    space_dim: List[float],
+    space_offset: List[float],
+    radius_min: float,
+    radius_max: float,
+    length_min: float,
+    length_max: float,
+    color: List[float] = None,
+) -> urdfpy.Link:
+    if color is None:
+        color = [1.0, 1.0, 1.0, 1.0]
+
+    random_tensor = torch.rand(num_cylinders, 3 + 2)
+    random_tensor[:, 0] = (
+        random_tensor[:, 0] * space_dim[0] - space_dim[0] / 2 + space_offset[0]
+    )
+    random_tensor[:, 1] = (
+        random_tensor[:, 1] * space_dim[1] - space_dim[1] / 2 + space_offset[1]
+    )
+    random_tensor[:, 2] = (
+        random_tensor[:, 2] * space_dim[2] - space_dim[2] / 2 + space_offset[2]
+    )
+
+    radius_range = radius_max - radius_min
+    random_tensor[:, 3] = random_tensor[:, 3] * radius_range + radius_min
+    length_range = length_max - length_min
+    random_tensor[:, 4] = random_tensor[:, 4] * length_range + length_min
+
+    visuals: List[urdfpy.Visual] = []
+    collisions: List[urdfpy.Collision] = []
+    for i in range(num_cylinders):
+        r = float(random_tensor[i, 3])
+        l = float(random_tensor[i, 4])
+        geom = urdfpy.Geometry(cylinder=urdfpy.Cylinder(radius=r, length=l))
+        origin = urdfpy.xyz_rpy_to_matrix(
+            random_tensor[i, 0:3].tolist() + [0.0, 0.0, 0.0]
+        )
+        visual = urdfpy.Visual(geometry=geom, origin=origin)
+        collision = urdfpy.Collision(name=None, geometry=geom, origin=origin)
+        visuals.append(visual)
+        collisions.append(collision)
+
+    link = urdfpy.Link(name=name, inertial=None, visuals=visuals, collisions=collisions)
+    set_link_color(link, color)
+
+    return link
+
+
 def fixed_joint(
     parent_name: str, child_name: str, xyz_rpy: List[float]
 ) -> urdfpy.Joint:

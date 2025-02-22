@@ -12,6 +12,9 @@ from isaacgymenvs.tasks.drone_racing.assets import (
     TrackWavyEightOptions,
     TrackTurnsOptions,
     TrackSimpleStickOptions,
+    TrackSjtu3dcOptions,
+    TrackSjtuEllOptions,
+    TrackSjtuStrOptions,
     create_track_multistory,
     create_track_rmua,
     create_track_splits,
@@ -21,6 +24,9 @@ from isaacgymenvs.tasks.drone_racing.assets import (
     create_track_wavy_eight,
     create_track_turns,
     create_track_simple_stick,
+    create_track_sjtu_3dc,
+    create_track_sjtu_ell,
+    create_track_sjtu_str,
 )
 from isaacgymenvs.tasks.drone_racing.waypoint import (
     Waypoint,
@@ -147,6 +153,15 @@ def define_track_assets() -> Tuple[List[Asset], List[str], List[List[Waypoint]]]
     track_assets.append(simple_stick_asset)
     track_names.append("simple_stick")
     track_wp_lists.append(simple_stick_wp)
+
+    # sjtu straight
+    sjtu_str_options = TrackSjtuStrOptions()
+    sjtu_str_asset, sjtu_str_wp = create_track_sjtu_str(
+        gym, sim, sjtu_str_options
+    )
+    track_assets.append(sjtu_str_asset)
+    track_names.append("sjtu_straight")
+    track_wp_lists.append(sjtu_str_wp)
 
     # TODO: more tracks can be added here
 

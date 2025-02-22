@@ -7,3 +7,6 @@ from .splits import TrackSplitsOptions, create_track_splits
 from .turns import TrackTurnsOptions, create_track_turns
 from .walls import TrackWallsOptions, create_track_walls
 from .wavy_eight import TrackWavyEightOptions, create_track_wavy_eight
+from .sjtu_3dc import TrackSjtu3dcOptions, create_track_sjtu_3dc
+from .sjtu_ell import TrackSjtuEllOptions, create_track_sjtu_ell
+from .sjtu_str import TrackSjtuStrOptions, create_track_sjtu_str

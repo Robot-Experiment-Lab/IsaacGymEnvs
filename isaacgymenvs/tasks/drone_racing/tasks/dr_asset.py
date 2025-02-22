@@ -16,6 +16,9 @@ from isaacgymenvs.tasks.drone_racing.assets import (
     create_track_wavy_eight,
     create_track_turns,
     create_track_simple_stick,
+    create_track_sjtu_3dc,
+    create_track_sjtu_ell,
+    create_track_sjtu_str,
     TrackMultiStoryOptions,
     TrackSplitsOptions,
     TrackWallsOptions,
@@ -25,6 +28,9 @@ from isaacgymenvs.tasks.drone_racing.assets import (
     TrackWavyEightOptions,
     TrackTurnsOptions,
     TrackSimpleStickOptions,
+    TrackSjtu3dcOptions,
+    TrackSjtuEllOptions,
+    TrackSjtuStrOptions,
 )
 from isaacgymenvs.tasks.drone_racing.waypoint import (
     WaypointData,
@@ -60,6 +66,15 @@ class DRAsset(DRDefaultOut):
             or self.asset_name == "turns"
             or self.asset_name == "simple_stick"
             or self.asset_name == "simple_stick_no_obst"
+            or self.asset_name == "sjtu_3dc_0"
+            or self.asset_name == "sjtu_3dc_1"
+            or self.asset_name == "sjtu_3dc_2"
+            or self.asset_name == "sjtu_3dc_3"
+            or self.asset_name == "sjtu_ell_0"
+            or self.asset_name == "sjtu_ell_1"
+            or self.asset_name == "sjtu_ell_2"
+            or self.asset_name == "sjtu_ell_3"
+            or self.asset_name == "sjtu_str"
         )
         assert is_asset_name_valid
         self.gnd_offset: float = cfg["env"]["groundOffset"]
@@ -141,6 +156,42 @@ class DRAsset(DRDefaultOut):
         elif self.asset_name == "simple_stick_no_obst":
             track_asset, track_wp_list = create_track_simple_stick(
                 self.gym, self.sim, TrackSimpleStickOptions(add_obstacles=False)
+            )
+        elif self.asset_name == "sjtu_3dc_0":
+            track_asset, track_wp_list = create_track_sjtu_3dc(
+                self.gym, self.sim, TrackSjtu3dcOptions(type_id=0)
+            )
+        elif self.asset_name == "sjtu_3dc_1":
+            track_asset, track_wp_list = create_track_sjtu_3dc(
+                self.gym, self.sim, TrackSjtu3dcOptions(type_id=1)
+            )
+        elif self.asset_name == "sjtu_3dc_2":
+            track_asset, track_wp_list = create_track_sjtu_3dc(
+                self.gym, self.sim, TrackSjtu3dcOptions(type_id=2)
+            )
+        elif self.asset_name == "sjtu_3dc_3":
+            track_asset, track_wp_list = create_track_sjtu_3dc(
+                self.gym, self.sim, TrackSjtu3dcOptions(type_id=3)
+            )
+        elif self.asset_name == "sjtu_ell_0":
+            track_asset, track_wp_list = create_track_sjtu_ell(
+                self.gym, self.sim, TrackSjtuEllOptions(type_id=0)
+            )
+        elif self.asset_name == "sjtu_ell_1":
+            track_asset, track_wp_list = create_track_sjtu_ell(
+                self.gym, self.sim, TrackSjtuEllOptions(type_id=1)
+            )
+        elif self.asset_name == "sjtu_ell_2":
+            track_asset, track_wp_list = create_track_sjtu_ell(
+                self.gym, self.sim, TrackSjtuEllOptions(type_id=2)
+            )
+        elif self.asset_name == "sjtu_ell_3":
+            track_asset, track_wp_list = create_track_sjtu_ell(
+                self.gym, self.sim, TrackSjtuEllOptions(type_id=3)
+            )
+        elif self.asset_name == "sjtu_str":
+            track_asset, track_wp_list = create_track_sjtu_str(
+                self.gym, self.sim, TrackSjtuStrOptions()
             )
 
         self.track_wp_data = WaypointData.from_waypoint_list(
