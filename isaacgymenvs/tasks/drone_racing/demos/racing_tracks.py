@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
     # draw waypoint data on those w/o debug views
     torch.set_printoptions(linewidth=130, sci_mode=False, precision=2)
-    for env_id in [0, 5, 6, 7, 8, 9, 10, 11, 12]:
+    for env_id in [0, 5, 6, 7, 8, 9, 10, 11, 12, 13]:
         wp_data = WaypointData.from_waypoint_list(1, wp_lists[env_id])
         wp_data.visualize(gym, [envs[env_id]], viewer, 1)
         print("---")
