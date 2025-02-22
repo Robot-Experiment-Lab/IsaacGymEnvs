@@ -4,6 +4,7 @@ from typing import List, Tuple
 from isaacgym.gymapi import Gym, Sim, AssetOptions, Asset
 from ..utils import TrackOptions
 from ..utils.track_utils import create_track_asset
+from ..utils.urdf_utils import random_cylinders_link
 from ...waypoint import Waypoint
 
 
@@ -12,6 +13,7 @@ class TrackSjtuStrOptions:
     file_name: str = "track_sjtu_str"
     track_options: TrackOptions = TrackOptions()
     asset_options: AssetOptions = AssetOptions()
+    num_obstacles: int = 12
 
 
 def create_track_sjtu_str(
@@ -20,8 +22,7 @@ def create_track_sjtu_str(
     options: TrackSjtuStrOptions,
 ) -> Tuple[Asset, List[Waypoint]]:
     wp = _define_wp()
-    obs_links, obs_origins = _define_obs()
-    
+    obs_links, obs_origins = _define_obs(options.num_obstacles)
     asset = create_track_asset(
         options.file_name,
         options.track_options,
@@ -89,8 +90,50 @@ def _define_wp() -> List[Waypoint]:
     ]
 
 
-def _define_obs():
+def _define_obs(num_obstacles: int):
     links = []
     origins = []
+
+    links.append(
+        random_cylinders_link(
+            "random_cylinders_0",
+            num_obstacles // 3,
+            [1.5, 2.0, 0.0],
+            [0.0, 0.0, 0.0],
+            0.1,
+            0.15,
+            3.0,
+            3.0,
+        )
+    )
+    origins.append([0.0, 8.5 / 2, 1.0])
+
+    links.append(
+        random_cylinders_link(
+            "random_cylinders_1",
+            num_obstacles // 3,
+            [1.5, 2.0, 0.0],
+            [0.0, 0.0, 0.0],
+            0.1,
+            0.15,
+            3.0,
+            3.0,
+        )
+    )
+    origins.append([0.0, 14.5 / 2, 1.0])
+
+    links.append(
+        random_cylinders_link(
+            "random_cylinders_2",
+            num_obstacles // 3,
+            [1.5, 2.0, 0.0],
+            [0.0, 0.0, 0.0],
+            0.1,
+            0.15,
+            3.0,
+            3.0,
+        )
+    )
+    origins.append([0.0, 20.5 / 2, 1.0])
 
     return links, origins
