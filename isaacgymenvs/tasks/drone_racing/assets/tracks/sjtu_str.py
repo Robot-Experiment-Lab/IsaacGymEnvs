@@ -106,7 +106,7 @@ def _define_obs(num_obstacles: int):
             3.0,
         )
     )
-    origins.append([0.0, 8.5 / 2, 1.0, 0.0, 0.0, 0.0])
+    origins.append([8.5 / 2, 0.0, 1.0, 0.0, 0.0, 0.0])
 
     links.append(
         random_cylinders_link(
@@ -120,7 +120,7 @@ def _define_obs(num_obstacles: int):
             3.0,
         )
     )
-    origins.append([0.0, 14.5 / 2, 1.0, 0.0, 0.0, 0.0])
+    origins.append([14.5 / 2, 0.0, 1.0, 0.0, 0.0, 0.0])
 
     links.append(
         random_cylinders_link(
@@ -134,6 +134,6 @@ def _define_obs(num_obstacles: int):
             3.0,
         )
     )
-    origins.append([0.0, 20.5 / 2, 1.0, 0.0, 0.0, 0.0])
+    origins.append([20.5 / 2, 0.0, 1.0, 0.0, 0.0, 0.0])
 
     return links, origins
