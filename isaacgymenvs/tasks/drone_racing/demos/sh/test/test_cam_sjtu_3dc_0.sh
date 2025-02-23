@@ -1,6 +1,6 @@
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 2 ]; then
     echo "Error: incorrect arg count"
-    echo "Require: checkpoint exp_name num_obstacles"
+    echo "Require: checkpoint exp_name"
     exit 1
 fi
 
@@ -8,7 +8,8 @@ run() {
   python train.py task=DRAsset \
     test=True \
     num_envs=25 \
-    task.assetName=sjtu_str \
+    task.assetName=sjtu_3dc \
+    task.sjtu_track.type_id=$4 \
     task.sjtu_track.num_obstacles=$3 \
     task.env.appendWpDist=5 \
     task.env.numObservations=120 \
@@ -42,17 +43,17 @@ run() {
     train.params.network.mlp.units="[256, 128, 128, 64]" \
     train.params.config.normalize_input=False \
     checkpoint=$1 \
-    seed=$4
+    seed=$5
 }
 
 ulimit -n 65535
 
 cd ../../../../../
 
-run_out=$(run $1 $2 $3 0)
-run_out=$(run $1 $2 $3 1)
-run_out=$(run $1 $2 $3 2)
-run_out=$(run $1 $2 $3 3)
+run_out=$(run $1 $2 0 0 0)
+run_out=$(run $1 $2 0 1 1)
+run_out=$(run $1 $2 0 2 2)
+run_out=$(run $1 $2 0 3 3)
 
 # extract SH_LOG_DIR
 log_dir=$(echo "$run_out" | grep 'SH_IO_LOG_DIR:' | cut -d':' -f2- | xargs)
@@ -70,8 +71,4 @@ python rerun_exp.py \
   --vel_max_cmap 20 \
   --only_calc_metrics
 
-# num_obstacles=0 success_rate=2/100
-# num_obstacles=3 success_rate=0/100
-# num_obstacles=6 success_rate=0/100
-# num_obstacles=9 success_rate=0/100
-# num_obstacles=12 success_rate=0/100
+# num_obstacles=0 success_rate=12/100

@@ -15,6 +15,9 @@ env:
   appendWpDist: 10.0
 
 assetName: splits
+sjtu_track:
+  type_id: 0
+  num_obstacles: 16
 
 initRandOpt:
   randDroneOptions:
