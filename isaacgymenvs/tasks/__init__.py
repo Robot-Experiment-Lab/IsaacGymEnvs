@@ -59,6 +59,7 @@ from .industreal.industreal_task_gears_insert import IndustRealTaskGearsInsert
 from .automate.automate_task_asset import AutoMateTaskAsset
 from .automate.automate_task_disassemble import AutoMateTaskDisassemble
 from .automate.automate_task_assemble import AutoMateTaskAssemble
+from .tacsl.tacsl_task_insertion import TacSLTaskInsertion
 
 def resolve_allegro_kuka(cfg, *args, **kwargs):
     subtask_name: str = cfg["env"]["subtask"]
@@ -116,5 +117,6 @@ isaacgym_task_map = {
     "Ingenuity": Ingenuity,
     "Quadcopter": Quadcopter,
     "ShadowHand": ShadowHand,
+    "TacSLTaskInsertion": TacSLTaskInsertion,
     "Trifinger": Trifinger,
 }
